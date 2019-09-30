@@ -1,7 +1,30 @@
 import requests
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 import json
 import time
 from bs4 import BeautifulSoup
+
+
+def requests_retry_session(
+    retries=5,
+    backoff_factor=0.3,
+    status_forcelist=(500, 502, 504),
+    session=None,
+):
+    session = session or requests.Session()
+    retry = Retry(
+        total=retries,
+        read=retries,
+        connect=retries,
+        backoff_factor=backoff_factor,
+        status_forcelist=status_forcelist,
+    )
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount('http://', adapter)
+    session.mount('https://', adapter)
+    return session
+
 
 start_time = time.time()
 
@@ -14,18 +37,19 @@ discursos_fail = []
 url = "http://legis.senado.leg.br/dadosabertos/senador/lista/legislatura/49/56"
 headers = {"Accept": "application/json"}
 
-senadoresResponse = requests.get(url, headers=headers, timeout=20)
+senadoresResponse = requests_retry_session().get(url, headers=headers, timeout=20)
 
 senadoresList = json.loads(senadoresResponse.content)[
     "ListaParlamentarLegislatura"]["Parlamentares"]["Parlamentar"]
 
 for senadorNum, senador in enumerate(senadoresList):
+    # for senadorNum, senador in enumerate(senadoresList[221:]):
     senadorId = senador["IdentificacaoParlamentar"]["CodigoParlamentar"]
 
     senadorUrl = "http://legis.senado.leg.br/dadosabertos/senador/{}/discursos".format(
         senadorId)
 
-    response = requests.get(senadorUrl, headers=headers, timeout=20)
+    response = requests_retry_session().get(senadorUrl, headers=headers, timeout=20)
     responseJson = json.loads(response.content)[
         "DiscursosParlamentar"]
 
@@ -56,7 +80,7 @@ for senadorNum, senador in enumerate(senadoresList):
         discursoFilename = "./discursos_data/{}_dis.txt".format(discursoId)
         metadadosFilename = "./discursos_data/{}_met.txt".format(discursoId)
 
-        discursoResponse = requests.get(
+        discursoResponse = requests_retry_session().get(
             discurso["UrlTexto"], headers=headers, timeout=20).content
 
         soup = BeautifulSoup(discursoResponse, "html.parser")
