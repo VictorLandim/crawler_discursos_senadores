@@ -24,9 +24,11 @@ for disc in discursos_raw:
 
 discursos_lemmatized = []
 
-for disc in discursos_list:
+for i, disc in enumerate(discursos_list):
     lemmatized = cogroo.lemmatize(disc)
     discursos_lemmatized.append(lemmatized)
+
+    print("Lemmatized {}/{}.".format(i, len(discursos_list)))
 
 stopword_list = list(
     STOP_WORDS) + list(nltk.corpus.stopwords.words('portuguese')) + ["sr", "sras", "exa", "exa.", "não", "nao"]
