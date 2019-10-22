@@ -1,0 +1,10 @@
+TENTAR:
+
+- https://en.wikipedia.org/wiki/Tf%E2%80%93idf
+- iterations=3000 => LATER
+- num_topic: entre 100 e 1000 = começar com 200
+- spacy pre processamento
+- remover verbos?
+- palmetto topic
+- coogroo4py - https://github.com/gpassero/cogroo4py
+- valdyjunior@unb.br

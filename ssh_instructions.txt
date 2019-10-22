@@ -1,0 +1,10 @@
+O acesso as máquinas do cluster é realizada utilizando o protocolo ssh. Para acessar as máquinas é necessário que um cliente ssh seja instalado na máquina do cliente, para usuários Linux é recomendado o cliente OpenSSH. Para usuários de Windows existem algumas soluções disponíveis, as indicadas são o PuTTY ou o SuperPuTTY. Já para clientes MacOS o indicado é utilizar o cliente ssh nativo do sistema.
+
+Clientes Linux
+ssh -p 13508 usuário@164.41.37.130
+
+O acesso para as outras máquinas só é permitido a partir do cluster 0. Após se autenticar no cluster0 é possível acessar os outros equipamentos por seu nome de host:
+
+ssh -p 22 usuario@clusterX
+
+onde X é o número da máquina que se deseja acessar.

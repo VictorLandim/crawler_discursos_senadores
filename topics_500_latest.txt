@@ -1,0 +1,10 @@
+[419] - program, govern, lanc, projet, atend, primeir, aco, inic, ate, municipi, ministeri, desenvolv, sera, mil, ser
+[1] - contrat, empres, licitaca, concessa, servic, process, public, ser, contrataca, licitaco, nao, prec, valor, feit, realiz
+[325] - grand, president, tamb, ferr, elman, quer, estad, aqu, hoj, senador, faz, outr, dess, sobretud, pass
+[110] - cultur, cultural, histor, patrimoni, artist, arte, nacional, mus, brasil, pov, brasileir, artes, reconhec, valor, centr
+[272] - senador, aqu, cas, sen, sempr, nest, mandat, trabalh, grand, amig, polit, companheir, muit, obrig, honr
+[108] - comerci, pais, econom, europ, merc, comerc, acord, mercosul, brasil, unia, alca, estad, desenvolv, comercial, unid
+[462] - nao, ser, precis, pod, dev, ter, faz, poss, pens, estar, necessari, necess, entend, dar, sim
+[315] - rend, basic, tod, cidadan, minim, pesso, program, ser, direit, econom, garant, institu, receb, famil, cad
+[314] - deus, igrej, crist, pastor, jesus, tod, evangel, religi, crista, catol, pesso, palavr, vid, famil, bibl
+[338] - vet, congress, nao, president, derrub, aprov, projet, nacional, cam, vot, ser, sen, deput, aqu, cas
