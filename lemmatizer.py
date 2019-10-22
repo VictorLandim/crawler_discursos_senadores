@@ -1,4 +1,3 @@
-from pymongo import MongoClient
 from preprocessor import *
 from cogroo_interface import Cogroo
 from sklearn.pipeline import Pipeline
