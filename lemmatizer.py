@@ -15,19 +15,13 @@ cogroo = Cogroo.Instance()
 with open('discursos_raw.pickle', 'rb') as handle:
     discursos_raw = pickle.load(handle)
 
-discursos_list = []
-
-for disc in discursos_raw:
-    text = disc["Conteudo"]
-    discursos_list.append(text)
-
 discursos_lemmatized = []
 
-for i, disc in enumerate(discursos_list):
+for i, disc in enumerate(discursos_raw):
+    print("Lemmatizing {}/{}.".format(i, len(discursos_raw)))
+
     lemmatized = cogroo.lemmatize(disc)
     discursos_lemmatized.append(lemmatized)
-
-    print("Lemmatized {}/{}.".format(i, len(discursos_list)))
 
 stopword_list = list(
     STOP_WORDS) + list(nltk.corpus.stopwords.words('portuguese')) + ["sr", "sras", "exa", "exa.", "não", "nao"]
