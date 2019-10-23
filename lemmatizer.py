@@ -18,10 +18,16 @@ with open('discursos_raw.pickle', 'rb') as handle:
 discursos_lemmatized = []
 
 for i, disc in enumerate(discursos_raw):
-    print("Lemmatization progress: {}%".format(i*100/len(discursos_raw)))
-
     lemmatized = cogroo.lemmatize(disc)
     discursos_lemmatized.append(lemmatized)
+
+    percentage = round(i*100/len(discursos_raw), 4)
+
+    elapsed_time = time.time() - start_time
+    time_str = time.strftime("%Hh %Mm %Ss",
+                             time.gmtime(elapsed_time))
+
+    print("Lemmatization progress: {}%, time: {}".format(percentage, time_str))
 
 stopword_list = list(
     STOP_WORDS) + list(nltk.corpus.stopwords.words('portuguese')) + ["sr", "sras", "exa", "exa.", "não", "nao"]
