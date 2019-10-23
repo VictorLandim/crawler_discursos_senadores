@@ -12,16 +12,13 @@ start_time = time.time()
 
 cogroo = Cogroo.Instance()
 
+discurso_index = 74320
+
 with open('discursos_raw.pickle', 'rb') as handle:
     discursos_raw = pickle.load(handle)
 
-discursos_lemmatized = []
 
-for i, disc in enumerate(discursos_raw):
-    print("Lemmatization progress: {}%".format(i*100/len(discursos_raw)))
-
-    lemmatized = cogroo.lemmatize(disc)
-    discursos_lemmatized.append(lemmatized)
+lemmatized = cogroo.lemmatize(discursos_raw[discurso_index])
 
 stopword_list = list(
     STOP_WORDS) + list(nltk.corpus.stopwords.words('portuguese')) + ["sr", "sras", "exa", "exa.", "não", "nao"]
@@ -32,12 +29,14 @@ pipe = Pipeline([
     ('cleaning', Cleaner(max_word_lenght=3)),
     ('stopwords', StopWords(lang='portuguese', stopword_list=stopword_list))])
 
-pipe.fit(discursos_lemmatized)
-discursos_processed = pipe.transform(discursos_lemmatized)
+pipe.fit([lemmatized])
+discursos_processed = pipe.transform([lemmatized])
 
-with open("discursos_lemma.pickle", 'wb') as handle:
-    pickle.dump(discursos_processed, handle, protocol=pickle.HIGHEST_PROTOCOL)
+with open("RAW_SAMPLE.txt", 'w+') as f:
+    f.write(discursos_raw[discurso_index])
 
-elapsed_time = time.time() - start_time
-print(time.strftime("Discursos pre processados, lemmatizados e salvos, demorou %H:%M:%S:%m",
-                    time.gmtime(elapsed_time)))
+with open("LEMMATIZED_SAMPLE.txt", 'w+') as f:
+    f.write(lemmatized)
+
+with open("PREPROC_SAMPLE.txt", 'w+') as f:
+    f.write(discursos_processed[0])
