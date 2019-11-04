@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from preprocessor import *
 from cogroo_interface import Cogroo
 from sklearn.pipeline import Pipeline
@@ -6,14 +8,14 @@ import nltk
 import time
 import pickle
 
-from preprocessor import *
+nltk.data.path.append("/home/victorlandim/nltk_data/")
 
 start_time = time.time()
 
 cogroo = Cogroo.Instance()
 
 with open('discursos_raw.pickle', 'rb') as handle:
-    discursos_raw = pickle.load(handle)
+    discursos_raw = pickle.load(handle)[70400:]
 
 discursos_lemmatized = []
 
@@ -27,7 +29,7 @@ for i, disc in enumerate(discursos_raw):
     time_str = time.strftime("%Hh %Mm %Ss",
                              time.gmtime(elapsed_time))
 
-    print("Lemmatization progress: {}%, time: {}".format(percentage, time_str))
+    print("Lemmatization progress: {}% - {}/{}, time: {}".format(percentage, i, len(discursos_raw), time_str))
 
 stopword_list = list(
     STOP_WORDS) + list(nltk.corpus.stopwords.words('portuguese')) + ["sr", "sras", "exa", "exa.", "não", "nao"]
@@ -41,7 +43,7 @@ pipe = Pipeline([
 pipe.fit(discursos_lemmatized)
 discursos_processed = pipe.transform(discursos_lemmatized)
 
-with open("discursos_lemma.pickle", 'wb') as handle:
+with open("discursos_lemma_4.pickle", 'wb') as handle:
     pickle.dump(discursos_processed, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 elapsed_time = time.time() - start_time
